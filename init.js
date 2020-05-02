@@ -102,6 +102,28 @@ const init = once(function (server) {
 
   log.info('initializing ...');
 
+  server.injectUiAppVars('sentinl-next', () => {
+    const config = server.config();
+
+    return {
+      sentinlConfig: {
+        appName: config.get('sentinl.app_name'),
+        es: {
+          timezone: config.get('sentinl.es.timezone'),
+        },
+        wizard: {
+          condition: {
+            queryType: config.get('sentinl.settings.wizard.condition.query_type'),
+            scheduleType: config.get('sentinl.settings.wizard.condition.schedule_type'),
+            over: config.get('sentinl.settings.wizard.condition.over'),
+            last: config.get('sentinl.settings.wizard.condition.last'),
+            interval: config.get('sentinl.settings.wizard.condition.interval'),
+          },
+        },
+      }
+    };
+  });
+
   try {
     if (config.settings.report.puppeteer.browser_path) {
       server.expose('chrome_path', config.settings.report.puppeteer.browser_path);

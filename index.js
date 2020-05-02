@@ -29,7 +29,8 @@ export default function (kibana) {
   return new kibana.Plugin({
     require: requirements,
     uiExports: {
-      spyModes: ['plugins/sentinl/dashboard_spy_button/alarm_button'],
+      // Replace spy by inspector
+      inspectorViews: ['plugins/sentinl/inspector_views/alarm_button'],
       mappings: require('./server/mappings/sentinl.json'),
       home: [
         'plugins/sentinl/register_feature'
@@ -41,30 +42,10 @@ export default function (kibana) {
         },
       },
       app: {
-        title: 'Sentinl',
-        description: 'Kibana Alert App for Elasticsearch',
+        title: 'Alerting',
+        description: 'Setup Alerts',
         main: 'plugins/sentinl/app',
         icon: 'plugins/sentinl/style/sentinl.svg',
-        injectVars: function (server, options) {
-          const config = server.config();
-          return {
-            sentinlConfig: {
-              appName: config.get('sentinl.app_name'),
-              es: {
-                timezone: config.get('sentinl.es.timezone'),
-              },
-              wizard: {
-                condition: {
-                  queryType: config.get('sentinl.settings.wizard.condition.query_type'),
-                  scheduleType: config.get('sentinl.settings.wizard.condition.schedule_type'),
-                  over: config.get('sentinl.settings.wizard.condition.over'),
-                  last: config.get('sentinl.settings.wizard.condition.last'),
-                  interval: config.get('sentinl.settings.wizard.condition.interval'),
-                },
-              },
-            }
-          };
-        }
       },
     },
     config: function (Joi) {

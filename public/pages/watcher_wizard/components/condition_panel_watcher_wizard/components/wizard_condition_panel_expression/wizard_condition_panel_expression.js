@@ -8,7 +8,6 @@ import { render, unmountComponentAtNode } from 'react-dom';
 
 import {
   EuiExpression,
-  EuiExpressionButton,
   EuiPopoverTitle,
   EuiFlexItem,
   EuiFlexGroup,
@@ -16,7 +15,8 @@ import {
   EuiSelect,
   EuiFieldText,
   EuiFormRow,
-  EuiFieldNumber
+  EuiFieldNumber,
+  EuiPanel
 } from '@elastic/eui';
 
 export default class WizardConditionPanelExpression extends PureComponent {
@@ -182,13 +182,13 @@ export default class WizardConditionPanelExpression extends PureComponent {
     return (
       <div className="expression-popover">
         <EuiPopoverTitle>When</EuiPopoverTitle>
-        <EuiExpression style={{ width: 180 }}>
+        <EuiPanel paddingSize="l">
           <EuiSelect
             value={this.props.chartQueryParams.queryType}
             onChange={this.changeQueryType}
             options={this.options.queryType}
           />
-        </EuiExpression>
+        </EuiPanel>
       </div>
     );
   }
@@ -197,7 +197,7 @@ export default class WizardConditionPanelExpression extends PureComponent {
     return (
       <div className="expression-popover">
         <EuiPopoverTitle>Agg</EuiPopoverTitle>
-        <EuiExpression>
+        <EuiPanel paddingSize="l">
           <EuiFlexGroup style={{ maxWidth: 600 }}>
             <EuiFlexItem grow={false} style={{ width: 180 }}>
               <EuiSelect
@@ -215,7 +215,7 @@ export default class WizardConditionPanelExpression extends PureComponent {
               />
             </EuiFlexItem>}
           </EuiFlexGroup>
-        </EuiExpression>
+        </EuiPanel>
       </div>
     );
   }
@@ -224,7 +224,7 @@ export default class WizardConditionPanelExpression extends PureComponent {
     return (
       <div className="expression-popover">
         <EuiPopoverTitle>Is over</EuiPopoverTitle>
-        <EuiExpression>
+        <EuiPanel paddingSize="l">
           <EuiFlexGroup style={{ maxWidth: 600 }}>
             <EuiFlexItem grow={false} style={{ width: 100 }}>
               <EuiSelect
@@ -250,7 +250,7 @@ export default class WizardConditionPanelExpression extends PureComponent {
               />
             </EuiFlexItem>}
           </EuiFlexGroup>
-        </EuiExpression>
+        </EuiPanel>
       </div>
     );
   }
@@ -259,7 +259,7 @@ export default class WizardConditionPanelExpression extends PureComponent {
     return (
       <div className="expression-popover">
         <EuiPopoverTitle>Is</EuiPopoverTitle>
-        <EuiExpression>
+        <EuiPanel paddingSize="l">
           <EuiFlexGroup style={{ maxWidth: 600 }}>
             <EuiFlexItem grow={false} style={{ width: 180 }}>
               <EuiSelect
@@ -277,7 +277,7 @@ export default class WizardConditionPanelExpression extends PureComponent {
               />
             </EuiFlexItem>
           </EuiFlexGroup>
-        </EuiExpression>
+        </EuiPanel>
       </div>
     );
   }
@@ -286,7 +286,7 @@ export default class WizardConditionPanelExpression extends PureComponent {
     return (
       <div className="expression-popover">
         <EuiPopoverTitle>Last</EuiPopoverTitle>
-        <EuiExpression>
+        <EuiPanel paddingSize="l">
           <EuiFlexGroup style={{ maxWidth: 600 }}>
             <EuiFlexItem grow={false} style={{ width: 180 }}>
               <EuiSelect
@@ -304,7 +304,7 @@ export default class WizardConditionPanelExpression extends PureComponent {
               />
             </EuiFlexItem>
           </EuiFlexGroup>
-        </EuiExpression>
+        </EuiPanel>
       </div>
     );
   }
@@ -313,7 +313,7 @@ export default class WizardConditionPanelExpression extends PureComponent {
     return (
       <div className="expression-popover">
         <EuiPopoverTitle>Interval</EuiPopoverTitle>
-        <EuiExpression>
+        <EuiPanel paddingSize="l">
           <EuiFlexGroup style={{ maxWidth: 600 }}>
             <EuiFlexItem grow={false} style={{ width: 180 }}>
               <EuiSelect
@@ -331,7 +331,7 @@ export default class WizardConditionPanelExpression extends PureComponent {
               />
             </EuiFlexItem>
           </EuiFlexGroup>
-        </EuiExpression>
+        </EuiPanel>
       </div>
     );
   }
@@ -343,9 +343,9 @@ export default class WizardConditionPanelExpression extends PureComponent {
           <EuiPopover
             id="query_type_popover"
             button={(
-              <EuiExpressionButton
+              <EuiExpression
                 description="when"
-                buttonValue={this.props.chartQueryParams.queryType}
+                value={this.props.chartQueryParams.queryType}
                 isActive={this.state.currentlyOpenPopover === 'queryType'}
                 onClick={this.openQueryType}
               />
@@ -365,9 +365,9 @@ export default class WizardConditionPanelExpression extends PureComponent {
           <EuiPopover
             id="query_agg_field_popover"
             button={(
-              <EuiExpressionButton
+              <EuiExpression
                 description="Agg"
-                buttonValue={this.popoverBtnValueQueryAggField}
+                value={this.popoverBtnValueQueryAggField}
                 isActive={this.state.currentlyOpenPopover === 'queryAggField'}
                 onClick={this.openQueryAggField}
               />
@@ -387,9 +387,9 @@ export default class WizardConditionPanelExpression extends PureComponent {
           <EuiPopover
             id="query_over_docs_popover"
             button={(
-              <EuiExpressionButton
+              <EuiExpression
                 description="Is over"
-                buttonValue={this.popoverBtnValueQueryOver}
+                value={this.popoverBtnValueQueryOver}
                 isActive={this.state.currentlyOpenPopover === 'queryOver'}
                 onClick={this.openQueryOver}
               />
@@ -409,9 +409,9 @@ export default class WizardConditionPanelExpression extends PureComponent {
           <EuiPopover
             id="query_threshold_popover"
             button={(
-              <EuiExpressionButton
+              <EuiExpression
                 description="Is"
-                buttonValue={`${this.props.chartQueryParams.threshold.direction} ${this.props.chartQueryParams.threshold.n}`}
+                value={`${this.props.chartQueryParams.threshold.direction} ${this.props.chartQueryParams.threshold.n}`}
                 isActive={this.state.currentlyOpenPopover === 'queryThreshold'}
                 onClick={this.openQueryThreshold}
               />
@@ -431,9 +431,9 @@ export default class WizardConditionPanelExpression extends PureComponent {
           <EuiPopover
             id="query_last_popover"
             button={(
-              <EuiExpressionButton
+              <EuiExpression
                 description="Last"
-                buttonValue={`${this.props.chartQueryParams.last.unit} ${this.props.chartQueryParams.last.n}`}
+                value={`${this.props.chartQueryParams.last.unit} ${this.props.chartQueryParams.last.n}`}
                 isActive={this.state.currentlyOpenPopover === 'queryLast'}
                 onClick={this.openQueryLast}
               />
@@ -453,9 +453,9 @@ export default class WizardConditionPanelExpression extends PureComponent {
           <EuiPopover
             id="query_interval_popover"
             button={(
-              <EuiExpressionButton
+              <EuiExpression
                 description="Interval"
-                buttonValue={`${this.props.chartQueryParams.interval.unit} ${this.props.chartQueryParams.interval.n}`}
+                value={`${this.props.chartQueryParams.interval.unit} ${this.props.chartQueryParams.interval.n}`}
                 isActive={this.state.currentlyOpenPopover === 'queryInterval'}
                 onClick={this.openQueryInterval}
               />
